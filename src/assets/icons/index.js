@@ -29,8 +29,10 @@ import soundoff from './soundoff.png'
 import vitalvoice from './vitalvoice.svg'
 import textutils from './textutils.svg'
 import quiller from './quiller.svg'
+import flipkart from './flipkartlogo.png'
 
 export {
+    flipkart,
     textutils,
     quiller,
     vitalvoice,

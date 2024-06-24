@@ -1,5 +1,6 @@
 import { meta, shopify, starbucks, tesla } from "../assets/images";
 import {
+    flipkart,
     car,
     contact,
     css,
@@ -132,28 +133,32 @@ export const projects = [
         iconUrl: quiller,
         theme: 'btn-back-blue',
         name: 'Quiller',
-        description: 'Developed a full stack web application that helps users write notes on the and save the notes on mongoDB cloud database.',
-        link: 'https://github.com/adrianhajdin/pricewise',
+        description: 'Developed a full stack web application that helps users write downloadable notes and save them on the mongoDB cloud database.',
+        github: 'https://github.com/MdKaifSardar/Quiller',
+        link: 'https://github.com/MdKaifSardar/Quiller'
     },
     {
         iconUrl: vitalvoice,
         theme: 'btn-back-black',
         name: 'VitalVoice',
-        description: 'Created a new we application that displays letst news from froom different countries usig the NEWS API.',
-        link: 'https://github.com/adrianhajdin/threads',
+        description: 'Created a NEWS web application that displays latest news from from different countries using the NEWS API.',
+        github: 'https://github.com/MdKaifSardar/news-app',
+        link: 'https://github.com/MdKaifSardar/news-app'
     },
     {
         iconUrl: textutils,
         theme: 'btn-back-grey',
         name: 'TextUtils',
         description: 'Developed a text utility web application taht lets you perform certain tasks on a block of text that you need help with.',
-        link: 'https://github.com/adrianhajdin/project_next13_car_showcase',
+        github: 'https://github.com/MdKaifSardar/TextUtils',
+        link: 'https://mdkaifsardar.github.io/TextUtils',
     },
     {
-        iconUrl: shopify,
-        theme: 'btn-back-blue',
+        iconUrl: flipkart,
+        theme: 'btn-back-green',
         name: 'Frontend clone of Flipkart website (under development)',
         description: 'Cloned the frontend aspects of the flipkart landing page.',
-        link: 'https://github.com/adrianhajdin/project_next13_car_showcase',
+        github: 'https://github.com/MdKaifSardar/Ecommerce-Website-Front-End-design',
+        link: 'https://mdkaifsardar.github.io/Ecommerce-Website-Front-End-design',
     },
 ];
