@@ -37,7 +37,7 @@ import islandScene from '../assets/3d/island.glb';
         e.stopPropagation();
         e.preventDefault();
         if(window.innerWidth < 768){
-          setSpeedVar(0.01);
+          setSpeedVar(0.03);
           setDampingFactor(0.9);
           setStoppingSpeed(0.0001);
         }

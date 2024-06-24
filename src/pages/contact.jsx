@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import '../css/contact.css'
 
+import { socialLinks } from '../constants'
+import { Link } from 'react-router-dom'
 
 const Contact = (props) => {
   const [userMsg, setUserMsg] = useState({
@@ -70,9 +72,32 @@ const Contact = (props) => {
     }
   }
   return (
-    <section className='relative flex flex-col max-container '>
-      <h1 className='head-text blue-gradient_text mb-2 cotact_page_heading'>Get in touch</h1>
-        <form className='contact_form flex flex-col p-10 rounded-2xl text-lg font-sans font-bold'>
+    <section className=' pt-24 relative flex flex-col justify-center items-center h-full'>
+        <h1 className='head-text blue-gradient_text cotact_page_heading'>Get in touch</h1>
+        <div className='flex flex-wrap gap-10 mt-auto justify-center items-center'>
+          {
+            socialLinks.map((link, index) => (
+              <div key={index} className='btn-back flex flex-col p-10 gap-4 h-fit justify-center items-center rounded-xl'>
+                <div className='block-container w-12 h-12 flex flex-row'>
+                  <div className={`w-12 h-12 btn-back rounded-xl ${link.theme}`}/>
+                    <div className='w-12 h-12 btn-front rounded-xl flex justify-center items-center'>
+                      <img src={link.iconUrl} alt={link.name} className='w-1/2 h-1/2'/>
+                    </div>
+                </div>
+                <h3>
+                  <Link 
+                  className='font-semibold text-blue-500/70'
+                  rel="noopener noreferrer"
+                  to={link.link}
+                  >
+                    {link.name}
+                  </Link>
+                </h3>
+              </div>
+            ))
+          }
+        </div>
+        <form className='contact_form flex flex-col p-10 rounded-2xl text-lg font-sans font-bold mt-10 mb-10'>
         <div className='flex flex-col gap-2 w-auto'>
             <label className='blue-gradient_text text-slim' htmlFor="email">Name:</label>
             <input

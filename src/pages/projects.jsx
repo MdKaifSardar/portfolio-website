@@ -30,14 +30,14 @@ const Projects = () => {
                 <p>{project.description}</p>
                 <Link
                 to={project.github}
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="font-semibold text-blue-600 mt-3 ml-3"
                  >Github Link<i className="fa-solid fa-arrow-right"></i>
                  </Link>
 
                 <Link
                 to={project.link}
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="font-semibold text-green-600 mt-3 ml-3 text-sm"
                  >Project Link<i className="fa-solid fa-arrow-right"></i>
                  </Link>

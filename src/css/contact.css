@@ -1,5 +1,5 @@
 .contact_sendemail_btn{
-    background-color: rgba(0, 174, 255, 0.61);
+    background-color: rgba(0, 174, 255, 0.76);
     color: white;
     font-size: 1.3rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -11,15 +11,14 @@
     justify-content: center;
     width: fit-content;
     margin: 1rem auto;
-    padding: .5rem;
-    border-radius: 1rem;
-    box-shadow: 3px 3px 1px 2px rgba(0, 174, 255, 0.445);
+    margin-bottom: 0;
+    padding: .5rem 1.3rem;
+    border-radius: .7rem;
+    box-shadow: 1px 1px 3px 1px rgba(49, 50, 53, 0.384);
 }
 .contact_sendemail_btn:hover{
     cursor: pointer;
-    background-color: rgba(0, 174, 255, 0.507);
-    color: rgb(81, 117, 138);
-    box-shadow: 3px 3px 1px 2px rgba(0, 70, 102, 0.445);
+    background-color: rgba(0, 174, 255, 0.356);
 }
 .input_text_contact{
     color: rgba(0, 94, 172, 0.664);
@@ -45,5 +44,17 @@
     }
 }
 .contact_form{
-    box-shadow: 9px 9px 1px 10px rgba(189, 189, 189, 0.295);
+    background-color: rgba(231, 231, 231, 0.411);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 40%;
+    border: 2px solid rgba(189, 189, 189, 0.295);
+    box-shadow: 5px 5px 4px 2px rgba(189, 189, 189, 0.295);
 }
+@media (max-width: 980px) {
+    .contact_form {
+        width: 70%;
+    }
+  }
