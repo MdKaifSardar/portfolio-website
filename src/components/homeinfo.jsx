@@ -17,9 +17,9 @@ const ContentBox =({text, link, btnText}) => {
 }
 
 const Homeinfo = ({currentStage}) => {
-    useEffect(() => {
-        console.log(currentStage);
-    }, [currentStage]);
+    // useEffect(() => {
+    //     console.log(currentStage);
+    // }, [currentStage]);
 
     if(currentStage === 1){
         return(

@@ -12,7 +12,9 @@ import islandScene from '../assets/3d/island.glb';
     const { nodes, materials } = useGLTF(islandScene);
     const lastX = useRef(0);
     const rotationSpeed = useRef(0);
-    const dampingFactor = 0.95;
+    const [speedVar, setSpeedVar] = useState(0.001);
+    const [dampingFactor, setDampingFactor] = useState(0.95);
+    const [stoppingSpeed, setStoppingSpeed] = useState(0.001);
 
     const handlePointerDown = (e) => {
       e.stopPropagation();
@@ -34,6 +36,11 @@ import islandScene from '../assets/3d/island.glb';
     const handlePointerMove = (e) => {
         e.stopPropagation();
         e.preventDefault();
+        if(window.innerWidth < 768){
+          setSpeedVar(0.01);
+          setDampingFactor(0.9);
+          setStoppingSpeed(0.0001);
+        }
 
         if(isRotating){
           const clientX=e.touches
@@ -41,9 +48,9 @@ import islandScene from '../assets/3d/island.glb';
           : e.clientX;
   
           const delta = (clientX - lastX.current) / viewport.width;
-          islandRef.current.rotation.y += delta * 0.001 * Math.PI;
+          islandRef.current.rotation.y += delta * speedVar * Math.PI;
   
-          rotationSpeed.current = delta * 0.001 * Math.PI;
+          rotationSpeed.current = delta * speedVar * Math.PI;
         }
     }
 
@@ -72,33 +79,35 @@ import islandScene from '../assets/3d/island.glb';
     useFrame(() => {
         if(!isRotating){
             rotationSpeed.current *= dampingFactor;
-            
-            if(Math.abs(rotationSpeed.current) < 0.001){
+            console.log("damping speed:", dampingFactor);
+            console.log("stopping speed:", stoppingSpeed);
+            console.log("rotation speed: ", rotationSpeed.current);
+            if(Math.abs(rotationSpeed.current) < stoppingSpeed){
                 rotationSpeed.current = 0;
             }
 
             islandRef.current.rotation.y += rotationSpeed.current;
         }
         else{
-            const rotation = islandRef.current.rotation.y;
-      const normalizedRotation =
-      ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-      switch (true) {
-        case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
-          setCurrentStage(4);
-          break;
-        case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
-          setCurrentStage(3);
-          break;
-        case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
-          setCurrentStage(2);
-          break;
-        case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
-          setCurrentStage(1);
-          break;
-        default:
-          setCurrentStage(null);
-      }
+          const rotation = islandRef.current.rotation.y;
+          const normalizedRotation =
+          ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+          switch (true) {
+            case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
+              setCurrentStage(4);
+              break;
+            case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
+              setCurrentStage(3);
+              break;
+            case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
+              setCurrentStage(2);
+              break;
+            case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
+              setCurrentStage(1);
+              break;
+            default:
+              setCurrentStage(null);
+          }
       }
     })
 
