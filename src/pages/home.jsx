@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Canvas} from '@react-three/fiber';
 import {Suspense} from 'react';
 import Loader from '../components/loader';
@@ -11,8 +11,29 @@ import Homeinfo from '../components/homeinfo';
 
 const Home = () => {
     const [isRotating, setIsRotating] = useState(false);
+    const [isRotatingBtn, setIsRotatingBtn] = useState(false);
     const [currentStage, setCurrentStage] = useState(1);
+    const [isHoldingLeft, setIsHoldingLeft] = useState(false);
+    const [isHoldingRight, setIsHoldingRight] = useState(false);
 
+    const handleMouseDownLeft = () => {
+        setIsHoldingLeft(true);
+    };
+
+    const handleMouseUpLeft = () => {
+        setIsHoldingLeft(false);
+    };
+    const handleMouseDownRight = () => {
+        setIsHoldingRight(true);
+    };
+
+    const handleMouseUpRight = () => {
+        setIsHoldingRight(false);
+    };
+
+    useEffect(() => {
+        console.log("left: ", isHoldingLeft,"right: ", isHoldingRight)
+    }, [isHoldingLeft, isHoldingRight])
 
     const adjustIslandForAllScreenSize = () => {
         let screenScale = null;
@@ -57,9 +78,9 @@ const Home = () => {
         camera={{near: 0.1, far: 1000}}
         >
             <Suspense fallback={<Loader/>}>
-                <directionalLight position={[1, 1, 1]} intensity={2} />
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 5, 10]} intensity={2} />
+                <directionalLight position={[1, 2, 1]} intensity={2} />
+                <ambientLight intensity={.5} />
+                <pointLight position={[20, 10, 10]} intensity={20} />
                 <spotLight
                     position={[0, 50, 10]}
                     angle={0.15}
@@ -73,8 +94,13 @@ const Home = () => {
                 />
 
                 <Bird/>
-                <Sky isRotating={isRotating}/>
+                <Sky isRotatingBtn={isRotatingBtn} isRotating={isRotating}/>
                 <Island 
+                    isRotatingBtn={isRotatingBtn}
+                    setIsRotatingBtn={setIsRotatingBtn}
+                    currentStage={currentStage}
+                    isHoldingLeft={isHoldingLeft}
+                    isHoldingRight={isHoldingRight}
                     position={islandPosition}
                     scale={islandScale}
                     rotation={islandRotation}
@@ -83,6 +109,7 @@ const Home = () => {
                     setCurrentStage={setCurrentStage}
                 />
                 <Aeroplane 
+                    isRotatingBtn={isRotatingBtn}
                     isRotating={isRotating}
                     scale={planeScale}
                     position={planePosition}
@@ -90,6 +117,24 @@ const Home = () => {
                 />
             </Suspense>
         </Canvas>
+        <div className='w-full mr-auto ml-auto absolute bottom-10 flex flex-row justify-center items-center gap-5 mx-2'>
+            <div
+                onMouseDown={handleMouseDownLeft}
+                onMouseUp={handleMouseUpLeft}
+                onTouchStart={handleMouseDownLeft}
+                onTouchEnd={handleMouseUpLeft}
+                className='hover:cursor-pointer hover:bg-blue-500/50 p-2 rounded-full hover:text-blue bg-blue-500'>
+                <i className="text-white fa-2x fa-solid fa-arrow-left"></i>
+            </div>
+            <div
+                onMouseDown={handleMouseDownRight}
+                onMouseUp={handleMouseUpRight}
+                onTouchStart={handleMouseDownRight}
+                onTouchEnd={handleMouseUpRight}
+                className='hover:cursor-pointer hover:bg-blue-500/50 p-2 rounded-full hover:text-blue bg-blue-500'>
+                <i className="text-white fa-2x fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
     </section>
   )
 }

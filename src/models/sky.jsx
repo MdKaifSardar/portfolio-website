@@ -4,13 +4,13 @@ import { useFrame } from '@react-three/fiber';
 
 import skyScene from '../assets/3d/sky.glb';
 
-export function Sky ({isRotating}){
+export function Sky ({isRotating, isRotatingBtn}){
     const sky = useGLTF(skyScene);
     const skyRef = useRef();
 
     
     useFrame((_, delta) => {
-      if(isRotating && skyRef.current){
+      if((isRotating || isRotatingBtn) && skyRef.current){
         skyRef.current.rotation.y += 0.1*delta; 
       }
 

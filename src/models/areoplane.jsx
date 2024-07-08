@@ -4,19 +4,19 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 
 
 
-const Aeroplane = ({isRotating, ...props}) => {
+const Aeroplane = ({isRotatingBtn, isRotating, ...props}) => {
   const planeRef = useRef();
   const {scene, animations} = useGLTF(planeScene);
   const { actions } = useAnimations(animations, planeRef);
   // planeRef.current.z = 10px;
   useEffect(() => {
-    if(isRotating){
+    if(isRotating || isRotatingBtn){
       actions["Take 001"].play();
     }
     else{
       actions["Take 001"].stop();
     }
-  }, [actions, isRotating])
+  }, [actions, isRotating, isRotatingBtn])
   return (
     <mesh {...props} ref={planeRef}>
       <primitive

@@ -1,8 +1,33 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import '../css/navbar.css'
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const Navbar = () => {
+    useGSAP(() => {
+        gsap.fromTo('#navItems', {
+            opacity: 0,
+            padding: 0,
+            stagger: 1,
+        },
+        {
+            opacity: 1,
+            padding: 8,
+            ease: 'bounce.out',
+            delay: 3,
+        })
+        gsap.fromTo('#navEle', {
+            opacity: 0,
+        },
+        {
+            delay: 3,
+            opacity: 1,
+            stagger: 1,
+            duration: 1,
+            ease: 'back.inOut'
+        })
+    })
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOnClick = () => {
@@ -10,18 +35,18 @@ const Navbar = () => {
     }
   return (
     <header className='header'>
-        <NavLink to="/" className="w-10 h-10 rounded-lg bg-white items-center justify-center flex font-bold shadow-md">
+        <NavLink id='navItems' to="/" className="w-fit h-fit p-2 rounded-full bg-white items-center justify-center flex font-bold shadow-md">
             <p className='blue-gradient_text'>MKS</p>
         </NavLink>
         <div className='flex flex-row items-center'>
-            <nav className='real_nav'>
-                <NavLink to='/about' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
+            <nav id='navItems' className='real_nav'>
+                <NavLink id='navEle' to='/about' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
                     About
                 </NavLink>
-                <NavLink to='/projects' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
+                <NavLink id='navEle' to='/projects' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
                     Projects
                 </NavLink>
-                <NavLink to='/contact' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
+                <NavLink id='navEle' to='/contact' className={({isActive}) => isActive?'text-blue-500':'text-black-500'}>
                     Contact
                 </NavLink>
             </nav>

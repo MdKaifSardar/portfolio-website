@@ -5,18 +5,18 @@ import { a } from '@react-spring/three'
 
 import islandScene from '../assets/3d/island.glb';
 
-  const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
+  const Island = ({isRotatingBtn, setIsRotatingBtn, isRotating, currentStage, setIsRotating, setCurrentStage, isHoldingLeft, isHoldingRight, ...props}) => {
 
-    const islandRef = useRef();
-    const {gl, viewport} = useThree();
-    const { nodes, materials } = useGLTF(islandScene);
-    const lastX = useRef(0);
-    const rotationSpeed = useRef(0);
-    const [speedVar, setSpeedVar] = useState(0.001);
-    const [dampingFactor, setDampingFactor] = useState(0.95);
-    const [stoppingSpeed, setStoppingSpeed] = useState(0.001);
+  const islandRef = useRef();
+  const {gl, viewport} = useThree();
+  const { nodes, materials } = useGLTF(islandScene);
+  const lastX = useRef(0);
+  const rotationSpeed = useRef(0);
+  const [speedVar, setSpeedVar] = useState(0.001);
+  const [dampingFactor, setDampingFactor] = useState(0.95);
+  const [stoppingSpeed, setStoppingSpeed] = useState(0.001);
 
-    const handlePointerDown = (e) => {
+  const handlePointerDown = (e) => {
       e.stopPropagation();
       e.preventDefault();
       setIsRotating(true);
@@ -27,13 +27,13 @@ import islandScene from '../assets/3d/island.glb';
 
         lastX.current = clientX;
 
-    }
-    const handlePointerUp = (e) => {
+  }
+  const handlePointerUp = (e) => {
         e.stopPropagation();
         e.preventDefault();
         setIsRotating(false);
-    }
-    const handlePointerMove = (e) => {
+  }
+  const handlePointerMove = (e) => {
         e.stopPropagation();
         e.preventDefault();
         if(window.innerWidth < 768){
@@ -52,9 +52,9 @@ import islandScene from '../assets/3d/island.glb';
   
           rotationSpeed.current = delta * speedVar * Math.PI;
         }
-    }
+  }
 
-    const handleKeyDown = (e) => {
+  const handleKeyDown = (e) => {
         if(e.key === "ArrowLeft"){
             if(!isRotating) setIsRotating(true);
 
@@ -67,21 +67,17 @@ import islandScene from '../assets/3d/island.glb';
 
             rotationSpeed.current = -0.007;
         }
-    }
+  }
 
-    const handleKeyUp = (e) => {
+  const handleKeyUp = (e) => {
         if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
             setIsRotating(false);
         }
-    }
-
-    
-    useFrame(() => {
-        if(!isRotating){
+  }
+  
+  useFrame(() => {
+        if(!isRotating && !isRotatingBtn){
             rotationSpeed.current *= dampingFactor;
-            console.log("damping speed:", dampingFactor);
-            console.log("stopping speed:", stoppingSpeed);
-            console.log("rotation speed: ", rotationSpeed.current);
             if(Math.abs(rotationSpeed.current) < stoppingSpeed){
                 rotationSpeed.current = 0;
             }
@@ -109,24 +105,59 @@ import islandScene from '../assets/3d/island.glb';
               setCurrentStage(null);
           }
       }
-    })
+  })
 
-    useEffect(() => {
-        const canvas = gl.domElement;
-        canvas.addEventListener("pointerdown", handlePointerDown);
-        canvas.addEventListener("pointerup", handlePointerUp);
-        canvas.addEventListener("pointermove", handlePointerMove);
-        document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("keyup", handleKeyUp);
+  const handleRotateButtonLeft = () => {
+      if(!isRotatingBtn) setIsRotatingBtn(true);
+      islandRef.current.rotation.y += 0.01 * Math.PI;
+      rotationSpeed.current = 0.007;
+  }
+  const handleRotateButtonRight = () => {
+      if(!isRotatingBtn) setIsRotatingBtn(true);
+      islandRef.current.rotation.y -= 0.01 * Math.PI;
+      rotationSpeed.current = -0.007;
+  }
+
+  useEffect(() => {
+      if(isHoldingLeft){
+        if(!isRotatingBtn) setIsRotatingBtn(true);
+        const interval = setInterval(handleRotateButtonLeft, 30);
 
         return () => {
-            canvas.removeEventListener("pointerdown", handlePointerDown);
-            canvas.removeEventListener("pointerup", handlePointerUp);
-            canvas.removeEventListener("pointermove", handlePointerMove);
-            document.removeEventListener("keydown", handleKeyDown);
-            document.removeEventListener("keyup", handleKeyUp);
+          clearInterval(interval);
         }
-    }, [gl, handlePointerDown, handlePointerMove, handlePointerUp])
+      }
+      else if(isHoldingRight){
+        if(!isRotatingBtn) setIsRotatingBtn(true);
+        const interval = setInterval(handleRotateButtonRight, 30);
+
+        return () => {
+          clearInterval(interval);
+        }
+      }
+      else{
+        setIsRotatingBtn(false);
+      }
+  }, [isHoldingLeft, isHoldingRight])
+
+  useEffect(() => {
+    const canvas = gl.domElement;
+    if(!isHoldingLeft && !isHoldingRight){
+      canvas.addEventListener("pointerdown", handlePointerDown);
+      canvas.addEventListener("pointerup", handlePointerUp);
+      canvas.addEventListener("pointermove", handlePointerMove);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      canvas.removeEventListener("pointerdown", handlePointerDown);
+      canvas.removeEventListener("pointerup", handlePointerUp);
+      canvas.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    }
+  }, [gl, handlePointerDown, handlePointerMove, handlePointerUp])
 
   return (
     <a.group ref={islandRef} {...props}>
