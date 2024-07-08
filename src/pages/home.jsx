@@ -117,7 +117,7 @@ const Home = () => {
                 />
             </Suspense>
         </Canvas>
-        <div className='w-full mr-auto ml-auto absolute bottom-10 flex flex-row justify-center items-center gap-5 mx-2'>
+        <div className='w-full mr-auto ml-auto absolute sm:bottom-10 bottom-20 flex flex-row justify-center items-center gap-5 mx-2'>
             <div
                 onMouseDown={handleMouseDownLeft}
                 onMouseUp={handleMouseUpLeft}
