@@ -14,10 +14,6 @@ const ProjectPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("sel projece", selProject);
-  }, [selProject]);
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevClick = () => {
