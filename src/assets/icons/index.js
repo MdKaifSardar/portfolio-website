@@ -28,10 +28,12 @@ import soundon from './soundon.png'
 import soundoff from './soundoff.png'
 import vitalvoice from './vitalvoice.svg'
 import textutils from './textutils.svg'
-import quiller from './quiller.svg'
+import quiller from './quiller.png'
 import flipkart from './flipkartlogo.png'
+import skillSync from './skillsync.svg'
 
 export {
+    skillSync,
     flipkart,
     textutils,
     quiller,

@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla } from "../assets/images";
+import { meta, OneStop, shopify, starbucks, tesla } from "../assets/images";
 import {
     flipkart,
     car,
@@ -20,8 +20,12 @@ import {
     threads,
     textutils,
     quiller,
-    vitalvoice
+    vitalvoice,
+    skillSync
 } from "../assets/icons";
+import { OneStopPics } from "../assets/images/projects/OneStop";
+import { QuillerPics } from "../assets/images/projects/Quiller";
+import { SkillSyncPics } from "../assets/images/projects/SkillSync";
 
 export const skills = [
     {
@@ -133,35 +137,58 @@ export const socialLinks = [
 
 export const projects = [
     {
+        id: 1,
+        iconUrl: OneStop,
+        color: "red",
+        theme: 'btn-back-red',
+        name: 'OneStop',
+        description: 'A full stack Ecommerce website Using the MERN stack',
+        github: 'https://github.com/MdKaifSardar/one-stop-frontend',
+        link: 'https://one-stop-gules.vercel.app/',
+        projectPics: OneStopPics
+    },
+    {
+        id: 2,
+        iconUrl: skillSync,
+        color: "grey",
+        theme: 'btn-back-black',
+        name: 'SkillSync',
+        description: 'A web application for resume enhancement',
+        github: 'https://github.com/MdKaifSardar/skill-sync',
+        link: 'https://skill-sync-jet.vercel.app/',
+        projectPics: SkillSyncPics
+    },
+    {
+        id: 3,
         iconUrl: quiller,
-        theme: 'btn-back-blue',
+        color: "pink",
+        theme: 'btn-back-violet',
         name: 'Quiller',
         description: 'Developed a full stack web application that helps users write downloadable notes and save them on the mongoDB cloud database.',
         github: 'https://github.com/MdKaifSardar/Quiller',
-        link: 'https://github.com/MdKaifSardar/Quiller'
+        link: 'https://github.com/MdKaifSardar/Quiller',
+        projectPics: QuillerPics
     },
     {
+        id: 4,
         iconUrl: vitalvoice,
+        color: "violet",
         theme: 'btn-back-black',
         name: 'VitalVoice',
         description: 'Created a NEWS web application that displays latest news from from different countries using the NEWS API.',
         github: 'https://github.com/MdKaifSardar/news-app',
-        link: 'https://github.com/MdKaifSardar/news-app'
+        link: 'https://github.com/MdKaifSardar/news-app',
+        projectPics: QuillerPics
     },
     {
+        id: 5,
         iconUrl: textutils,
+        color: "black",
         theme: 'btn-back-grey',
         name: 'TextUtils',
         description: 'Developed a text utility web application taht lets you perform certain tasks on a block of text that you need help with.',
         github: 'https://github.com/MdKaifSardar/TextUtils',
         link: 'https://mdkaifsardar.github.io/TextUtils',
-    },
-    {
-        iconUrl: flipkart,
-        theme: 'btn-back-green',
-        name: 'Frontend clone of Flipkart website (under development)',
-        description: 'Cloned the frontend aspects of the flipkart landing page.',
-        github: 'https://github.com/MdKaifSardar/Ecommerce-Website-Front-End-design',
-        link: 'https://mdkaifsardar.github.io/Ecommerce-Website-Front-End-design',
+        projectPics: QuillerPics
     },
 ];

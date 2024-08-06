@@ -66,19 +66,10 @@ const Projects = () => {
                   {project.name}
                 </h2>
                 <p>{project.description}</p>
-                <Link
-                to={project.github}
-                rel="noopener noreferrer"
-                className="font-semibold text-blue-600 mt-3 ml-3"
-                 >Github Link<i className="fa-solid fa-arrow-right"></i>
-                 </Link>
-
-                <Link
-                to={project.link}
-                rel="noopener noreferrer"
-                className="font-semibold text-green-600 mt-3 ml-3 text-sm"
-                 >Project Link<i className="fa-solid fa-arrow-right"></i>
-                 </Link>
+                 <Link 
+                  rel="noopener noreferrer"
+                  className="font-semibold text-green-600 mt-3 ml-3 text-sm"
+                  to={`/project-page/${project.id}`}>View Project</Link>
             </div>
           </div>
           ))
